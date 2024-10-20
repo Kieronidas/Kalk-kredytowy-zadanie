@@ -10,27 +10,28 @@
 <h2>Kalkulator Kredytowy</h2>
 <form action="<?php print(_APP_URL);?>/app/calc.php" method="post">
     <label for="id_amount">Kwota kredytu: </label>
-    <input id="id_amount" type="text" name="amount" value="<?php print($amount); ?>" /><br />
+    <input id="id_amount" type="text" name="amount" 
+           value="<?php print(isset($amount) ? $amount : ''); ?>" /><br />
 
     <label for="id_years">Liczba lat: </label>
-    <input id="id_years" type="text" name="years" value="<?php print($years); ?>" /><br />
+    <input id="id_years" type="text" name="years" 
+           value="<?php print(isset($years) ? $years : ''); ?>" /><br />
 
     <label for="id_interest">Oprocentowanie (%): </label>
-    <input id="id_interest" type="text" name="interest" value="<?php print($interest); ?>" /><br />
+    <input id="id_interest" type="text" name="interest" 
+           value="<?php print(isset($interest) ? $interest : ''); ?>" /><br />
 
     <input type="submit" value="Oblicz ratę" />
 </form>
 
 <?php
 // Wyświetlenie listy błędów, jeśli istnieją
-if (isset($messages)) {
-    if (count($messages) > 0) {
-        echo '<ol style="margin: 20px; padding: 10px 10px 10px 30px; border-radius: 5px; background-color: #f88; width:300px;">';
-        foreach ($messages as $msg) {
-            echo '<li>'.$msg.'</li>';
-        }
-        echo '</ol>';
+if (isset($messages) && count($messages) > 0) {
+    echo '<ol style="margin: 20px; padding: 10px 10px 10px 30px; border-radius: 5px; background-color: #f88; width:300px;">';
+    foreach ($messages as $msg) {
+        echo '<li>'.$msg.'</li>';
     }
+    echo '</ol>';
 }
 ?>
 
