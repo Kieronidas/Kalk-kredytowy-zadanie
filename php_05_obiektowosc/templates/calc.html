@@ -1,0 +1,45 @@
+
+{extends file="../templates/main.html"}
+
+{block name=footer}
+<p>Przykładowa treść stopki wpisana do szablonu głównego z szablonu kalkulatora.</p>
+{/block}
+
+{block name=content}
+<h2 class="content-head is-center">Kalkulator kredytowy</h2>
+
+<div class="pure-g">
+    <div class="l-box-lrg pure-u-1">
+        <form class="pure-form pure-form-stacked" action="{$conf->app_url}/app/calc.php" method="post">
+            <fieldset>
+                <label for="amount">Kwota kredytu</label>
+                <input id="amount" type="text" name="amount" value="{if isset($form->amount)}{$form->amount}{/if}">
+
+                <label for="years">Liczba lat</label>
+                <input id="years" type="text" name="years" value="{if isset($form->years)}{$form->years}{/if}">
+
+                <label for="rate">Oprocentowanie (%)</label>
+                <input id="rate" type="text" name="rate" value="{if isset($form->rate)}{$form->rate}{/if}">
+
+                <button type="submit" class="pure-button">Oblicz</button>
+            </fieldset>
+        </form>
+    </div>
+
+    <div class="l-box-lrg pure-u-1 pure-u-med-3-5">
+        {if isset($messages) && $messages|count > 0}
+            <h4>Wystąpiły błędy:</h4>
+            <ul class="error-list">
+            {foreach from=$messages item=msg}
+                <li>{$msg}</li>
+            {/foreach}
+            </ul>
+        {/if}
+
+        {if isset($result)}
+            <h4>Miesięczna rata kredytu:</h4>
+            <p class="result">{$result|number_format:2}</p>
+        {/if}
+    </div>
+</div>
+{/block}
