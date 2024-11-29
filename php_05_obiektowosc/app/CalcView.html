@@ -1,0 +1,49 @@
+{extends file="../templates/main.html"}
+
+{block name=footer}
+<p>Przykładowa treść stopki wpisana do szablonu głównego z szablonu kalkulatora.</p>
+{/block}
+
+{block name=content}
+<h2 class="content-head is-center">Kalkulator kredytowy</h2>
+
+<div class="pure-g">
+    <div class="l-box-lrg pure-u-1">
+        <form class="pure-form pure-form-stacked" action="{$conf->app_url}/app/calc.php" method="post">
+            <fieldset>
+                <label for="amount">Kwota kredytu</label>
+                <input type="text" name="amount" id="amount" value="{$form->amount}" required>
+
+                <label for="years">Liczba lat</label>
+                <input type="text" name="years" id="years" value="{$form->years}" required>
+
+                <label for="rate">Oprocentowanie (%)</label>
+                <input type="text" name="rate" id="rate" value="{$form->rate}" required>
+
+                <button type="submit" class="pure-button pure-button-primary">Oblicz</button>
+            </fieldset>
+        </form>
+
+        {if $errors}
+            <ul>
+                {foreach from=$errors item=error}
+                    <li style="color:red;">{$error}</li>
+                {/foreach}
+            </ul>
+        {/if}
+
+        {if $infos}
+            <ul>
+                {foreach from=$infos item=info}
+                    <li style="color:blue;">{$info}</li>
+                {/foreach}
+            </ul>
+        {/if}
+
+        {if $result->result}
+            <h3>Wyniki:</h3>
+            <p>Wynik operacji: <strong>{$result->result}</strong></p>
+        {/if}
+    </div>
+</div>
+{/block}
